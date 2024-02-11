@@ -265,73 +265,92 @@
                     <div id="layout" class="container-fluid">
                         <h1>Corpus of Individual Differences and Eye Movements</h1>
                         <!-- THIS DIV IS WHERE YOU WILL WANT TO INSERT CONTENT. EVERYTHING OUTSIDE OF IT IS THE TEMPLATE FOR THE PAGE WHILE THE INSIDE IS THE THEME. -Corey -->
-                    <!-- Place this snippet inside the <div id="layout" class="container-fluid"> in your index.html file -->
-                        <div id="data-cleaning-method">
-                            <h2>Data Cleaning Method</h2>
-                            <p>Please select which base data file you would like to use to create your customized data set. There are two base data files to choose from: baseline and modal.</p>
-                            <form>
-                                <input type="radio" id="baseline" name="data_file_type" value="baseline">
-                                <label for="baseline">Baseline Data Cleaning File</label><br>
-                                
-                                <input type="radio" id="modal" name="data_file_type" value="modal">
-                                <label for="modal">Modal Data Cleaning File</label><br>
-                            </form>
-                        </div>
                         
-                        <!-- Consolidated Popup Container -->
-                        <div id="popup-container" style="display:none; position:fixed; top:10px; left:50%; transform:translateX(-50%); padding:20px; background:#fff; border:1px solid #ddd; z-index:10001;">
-                            <div id="popup-content"></div>
-                            <button onclick="hidePopup()">Close</button>
-                        </div>
-                        
-                        <script>
-                            function showPopup(description) {
-                                document.getElementById('popup-content').innerText = description;
-                                document.getElementById('popup-container').style.display = 'block';
-                            }
-                            
-                            function hidePopup() {
-                                document.getElementById('popup-container').style.display = 'none';
-                            }
-                        </script>
-                        
-                        <div id="variable-selection">
-                            {% for category, variables in headers_parts.items() %}
-                            <div class="category">
-                                <h2>{{ category }}</h2>
-                                {% for variable, description in variables %}
-                                <div class="variable">
-                                    <input type="checkbox" id="var_{{ loop.index }}" name="variables" value="{{ variable }}">
-                                    <label for="var_{{ loop.index }}">{{ variable }}</label>
-                                    <a href="javascript:void(0);" onclick="showPopup('{{ description }}')">?</a>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            {% endfor %}
-                        </div>
-                        
-  
-  <!-- Popup Template -->
-  <div id="popup" class="popup" style="display:none; position:fixed; top:10px; left:50%; transform:translateX(-50%); padding:20px; background:#fff; border:1px solid #ddd; z-index:10001;">
-    <!-- Popup content will be filled by JavaScript -->
-  </div>
-  
-  <script>
-  function showPopup(title) {
-    // This is where you can fill the popup content based on the section title
-    var popupContent = 'Information about ' + title;
+<!-- Place this snippet inside the <div id="layout" class="container-fluid"> in your index.html file -->
+    <div id="data-cleaning-method">
+        <h2>Data Cleaning Method</h2>
+        <p>Please select which base data file you would like to use to create your customized data set. There are two base data files to choose from: baseline and modal.</p>
+        <form>
+            <input type="radio" id="baseline" name="data_file_type" value="baseline">
+            <label for="baseline">Baseline Data Cleaning File</label><br>
+            
+            <input type="radio" id="modal" name="data_file_type" value="modal">
+            <label for="modal">Modal Data Cleaning File</label><br>
+        </form>
+    </div>
     
-    // Display the popup
-    var popup = document.getElementById('popup');
-    popup.innerHTML = popupContent;
-    popup.style.display = 'block';
+    <!-- Consolidated Popup Container -->
+    <div id="popup-container" style="display:none; position:fixed; top:10px; left:50%; transform:translateX(-50%); padding:20px; background:#fff; border:1px solid #ddd; z-index:10001;">
+        <div id="popup-content"></div>
+        <button onclick="hidePopup()">Close</button>
+    </div>
     
-    // Hide the popup after 5 seconds
-    setTimeout(function() {
-      popup.style.display = 'none';
-    }, 5000);
-  }
-  </script>
+    <script>
+        function showPopup(description) {
+            document.getElementById('popup-content').innerText = description;
+            document.getElementById('popup-container').style.display = 'block';
+        }
+        
+        function hidePopup() {
+            document.getElementById('popup-container').style.display = 'none';
+        }
+    </script>
+    
+    <div id="variable-selection">
+        {% for main_cat, sub_cats in headers_parts.items() %}
+        <div class="category">
+            <h2>{{ main_cat }}</h2>
+            {% for sub_cat, variables in sub_cats.items() %}
+            <div class="sub-category">
+                <h3>{{ sub_cat }}</h3>
+                {% for variable, description in variables %}
+                <div class="variable">
+                    <input type="checkbox" id="var_{{ loop.index }}" name="variables" value="{{ variable }}"
+                           {% if variable in ['Participant ID', 'Passage ID'] %}checked{% endif %}>
+                    <label for="var_{{ loop.index }}">{{ variable }}</label>
+                    <a href="javascript:void(0);" onclick="showPopup('{{ description }}')">?</a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+    
+    <div id="collect-data-button">
+        <button onclick="collectData()">Collect Data</button>
+    </div>
+
+    <script>
+        function collectData() {
+            // Retrieve all checked checkboxes
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            var data = [];
+            checkboxes.forEach(function(checkbox) {
+                data.push(checkbox.value);
+            });
+    
+            // Send a POST request to the Flask route
+            fetch('/collect-data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 'data': data })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Display a success message
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+    
+
+                        
   
         </div>
         <footer>
