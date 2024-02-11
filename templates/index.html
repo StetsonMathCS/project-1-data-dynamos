@@ -30,7 +30,7 @@
                     <nav class="navbar navbar-expand-lg navbar-light" aria-label="Universal Navigation">
                         <a class="navbar-brand" href="https://www.stetson.edu">
                             <img
-                                src="images/logo.webp"
+                                src="../images/logo.webp"
                                 loading="lazy"
                                 width="235"
                                 height="80"
@@ -240,14 +240,12 @@
                     <button id="side-menu-toggle" type="button" class="d-lg-none rounded" data-bs-toggle="collapse" data-bs-target="#side-menu"><i class="bi bi-list"></i> Webpage Menu</button>
                     <ul id="side-menu" class="collapse">
                         <!-- NAVBAR LEFT MARGIN -->
-
+                        <li><i class="bi bi-dash"></i> <a href="https://www.stetson.edu/artsci/psychology/">Department of Psychology</a></li>
+                        <li><i class="bi bi-dash"></i> <a href="https://www.stetson.edu/artsci/psychology/degree-requirements.php">Bachelor of Science Degree in Psychology</a></li>
                         <li><i class="bi bi-dash"></i> <a href="https://www.stetson.edu/#">Placeholder Clickable #1</a></li>
                         <li><i class="bi bi-dash"></i> <a href="https://www.stetson.edu/#">Placeholder Clickable #2</a></li>
                         <li><i class="bi bi-dash"></i> <a href="https://www.stetson.edu/#">Placeholder Clickable #3</a></li>
                         <li><i class="bi bi-dash"></i> <a href="https://www.stetson.edu/#">Placeholder Clickable #4</a></li>
-                        <li><i class="bi bi-dash"></i> <a href="https://www.stetson.edu/#">Placeholder Clickable #5</a></li>
-                        <li><i class="bi bi-dash"></i> <a href="https://www.stetson.edu/#">Placeholder Clickable #6</a></li>
-
                     </ul>
                     <div id="menu-ad"></div>
                 </aside>
@@ -267,8 +265,6 @@
                         <!-- THIS DIV IS WHERE YOU WILL WANT TO INSERT CONTENT. EVERYTHING OUTSIDE OF IT IS THE TEMPLATE FOR THE PAGE WHILE THE INSIDE IS THE THEME. -Corey -->
                     <!-- Place this snippet inside the <div id="layout" class="container-fluid"> in your index.html file -->
                         <div id="data-cleaning-method">
-                            <h2>Data Cleaning Method</h2>
-                            <p>Please select which base data file you would like to use to create your customized data set. There are two base data files to choose from: baseline and modal.</p>
                             <form>
                                 <input type="radio" id="baseline" name="data_file_type" value="baseline">
                                 <label for="baseline">Baseline Data Cleaning File</label><br>
@@ -295,21 +291,6 @@
                             }
                         </script>
                         
-                        <div id="variable-selection">
-                            {% for category, variables in headers_parts.items() %}
-                            <div class="category">
-                                <h2>{{ category }}</h2>
-                                {% for variable, description in variables %}
-                                <div class="variable">
-                                    <input type="checkbox" id="var_{{ loop.index }}" name="variables" value="{{ variable }}">
-                                    <label for="var_{{ loop.index }}">{{ variable }}</label>
-                                    <a href="javascript:void(0);" onclick="showPopup('{{ description }}')">?</a>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            {% endfor %}
-                        </div>
-                        
   
   <!-- Popup Template -->
   <div id="popup" class="popup" style="display:none; position:fixed; top:10px; left:50%; transform:translateX(-50%); padding:20px; background:#fff; border:1px solid #ddd; z-index:10001;">
@@ -334,7 +315,7 @@
   </script>
   
         </div>
-        <footer>
+        <footer> <!--NEED TO FIX, BUNCHED UP - Corey-->
             <section id="contacts" title="Contact Information">
                 <h2>Corpus of Individual Differences and Eye Movements</h2>
                 <p>
