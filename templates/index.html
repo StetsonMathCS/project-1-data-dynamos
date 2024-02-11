@@ -265,8 +265,6 @@
                         <!-- THIS DIV IS WHERE YOU WILL WANT TO INSERT CONTENT. EVERYTHING OUTSIDE OF IT IS THE TEMPLATE FOR THE PAGE WHILE THE INSIDE IS THE THEME. -Corey -->
                     <!-- Place this snippet inside the <div id="layout" class="container-fluid"> in your index.html file -->
                         <div id="data-cleaning-method">
-                            <h2>Data Cleaning Method </h2>
-                            <p>Please select which base data file you would like to use to create your customized data set. There are two base data files to choose from: baseline and modal. </p>
                             <form>
                                 <input type="radio" id="baseline" name="data_file_type" value="baseline">
                                 <label for="baseline">Baseline Data Cleaning File</label><br>
@@ -276,82 +274,23 @@
                             </form>
                         </div>
                         
-                        <!-- Popup container -->
-                        <div id="popup-container" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%); background-color:white; border:1px solid #ccc; padding:20px; z-index:1000;">
-                            <!-- Popup content will be dynamically inserted here -->
+                        <!-- Consolidated Popup Container -->
+                        <div id="popup-container" style="display:none; position:fixed; top:10px; left:50%; transform:translateX(-50%); padding:20px; background:#fff; border:1px solid #ddd; z-index:10001;">
+                            <div id="popup-content"></div>
+                            <button onclick="hidePopup()">Close</button>
                         </div>
                         
                         <script>
-                        function showPopup(infoId) {
-                            var infoText = {
-                                'DataCleaningMethodInfo': 'This section allows you to select the data cleaning method you prefer for the dataset. Choose between baseline, which includes all data without any modifications, and modal, which applies common data cleaning techniques.'
-                            };
-                            var popupContainer = document.getElementById('popup-container');
-                            popupContainer.innerHTML = '<p>' + infoText[infoId] + '</p><button onclick="closePopup()">Close</button>';
-                            popupContainer.style.display = 'block';
-                        }
-                        
-                        function closePopup() {
-                            var popupContainer = document.getElementById('popup-container');
-                            popupContainer.style.display = 'none';
-                        }
+                            function showPopup(description) {
+                                document.getElementById('popup-content').innerText = description;
+                                document.getElementById('popup-container').style.display = 'block';
+                            }
+                            
+                            function hidePopup() {
+                                document.getElementById('popup-container').style.display = 'none';
+                            }
                         </script>
                         
-<div id="variable-selection">
-  
-    <!-- Identifying Variables Section -->
-    <div class="variable-section">
-      <h2>Identifying Variables </h2>
-      <!-- Content for Identifying Variables will go here -->
-    </div>
-  
-    <!-- Eye Movement Data Section -->
-    <div class="variable-section">
-      <h2>Eye Movement Data </h2>
-      <!-- Content for Eye Movement Data will go here -->
-    </div>
-  
-    <!-- Lexical Variables Section -->
-    <div class="variable-section">
-      <h2>Lexical Variables </h2>
-      <!-- Content for Lexical Variables will go here -->
-    </div>
-  
-    <!-- Individual Differences Section -->
-    <div class="variable-section">
-      <h2>Individual Differences </h2>
-      <!-- Content for Individual Differences will go here -->
-    </div>
-    <div id="variable-section">
-        {% for header, value in headers.items() %}
-            <div class="variable">
-                <input type="checkbox" id="{{ header }}" name="variables" value="{{ header }}">
-                <label for="{{ header }}">{{ value }}</label>
-                <a href="javascript:void(0);" onclick="showPopup('{{ header }}')">?</a>
-            </div>
-        {% endfor %}
-    </div>
-
-    <div id="popup-container" style="display:none; position:fixed; ...">
-        <!-- Popup content will be dynamically inserted here -->
-    </div>
-
-    <script>
-        function showPopup(header) {
-            var popupContent = 'Information about ' + header;
-            // You would replace the above string with the actual content you want to show in the popup
-            var popupContainer = document.getElementById('popup-container');
-            popupContainer.innerHTML = '<p>' + popupContent + '</p><button onclick="closePopup()">Close</button>';
-            popupContainer.style.display = 'block';
-        }
-
-        function closePopup() {
-            var popupContainer = document.getElementById('popup-container');
-            popupContainer.style.display = 'none';
-        }
-    </script>
-    
-  </div>
   
   <!-- Popup Template -->
   <div id="popup" class="popup" style="display:none; position:fixed; top:10px; left:50%; transform:translateX(-50%); padding:20px; background:#fff; border:1px solid #ddd; z-index:10001;">
