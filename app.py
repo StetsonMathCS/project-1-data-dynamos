@@ -1,48 +1,43 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, send_file, jsonify, redirect, url_for
 import pandas as pd
 import os
 
 app = Flask(__name__)
 
-# Assuming your datasets are named 'baseline.csv' and 'modal.csv' and located in the 'data' directory
-DATA_DIR = 'data'
-BASELINE_FILE = 'baseline.csv'
-MODAL_FILE = 'modal.csv'
+def read_excel_and_categorize(file_path):
+    df = pd.read_excel(file_path, header=None)
+    
+    # Descriptions are assumed to be in row 3 (index 2)
+    descriptions_row = df.iloc[2]
+    
+    target_row_index = df.apply(lambda row: row.astype(str).str.contains('Label for Website').any(), axis=1).idxmax()
+    
+    ranges = {
+        'Identifying Variables': (1, 8),
+        'Eye Movement Data': (9, 52),
+        'Lexical Variables': (53, 85),
+        'Individual Differences': (86, 119),
+    }
+
+    categorized_data = {}
+    for category, (start_idx, end_idx) in ranges.items():
+        variables = df.iloc[target_row_index, start_idx:end_idx + 1].dropna().values.tolist()
+        descriptions = descriptions_row[start_idx:end_idx + 1].values.tolist()
+        categorized_data[category] = list(zip(variables, descriptions))
+
+    return categorized_data
 
 @app.route('/')
 def index():
-    df = pd.read_excel('Variable Definitions.xlsx')
-    headers = df.iloc[0]  # Get the first row, which contains your headers
-    return render_template('index.html', headers=headers.to_dict())
+    file_path = 'Variable Definitions.xlsx'  # Adjust the path accordingly
+    headers_parts = read_excel_and_categorize(file_path)
+    return render_template('index.html', headers_parts=headers_parts)
 
 @app.route('/process-selection', methods=['POST'])
 def process_selection():
-    # Retrieve form data
-    data_file_type = request.form.get('Variable Definitions.xlsx')
-    # Load the appropriate dataset
-    if data_file_type == 'baseline':
-        df = pd.read_csv(os.path.join(DATA_DIR, BASELINE_FILE))
-    elif data_file_type == 'modal':
-        df = pd.read_csv(os.path.join(DATA_DIR, MODAL_FILE))
-    
-    # Add your data cleaning methods here
-    # ...
-
-
-    # Generate the CSV file to download
-    output_file_path = os.path.join(DATA_DIR, 'output.csv')
-    df.to_csv(output_file_path, index=False)
-
-    # Return the file for download
-    return send_file(output_file_path, as_attachment=True)
-
-@app.route('/first-row')
-def show_first_row():
-    df = pd.read_excel('Variable Definitions.xlsx')
-    first_row_dict = df.iloc[0].to_dict()
-    return jsonify(first_row_dict)
-
-
+    selected_variables = request.form.getlist('variables')
+    print("Selected Variables:", selected_variables)
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)
