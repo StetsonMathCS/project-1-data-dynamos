@@ -269,73 +269,121 @@
                         <h1>Corpus of Individual Differences and Eye Movements</h1>
                         <!-- THIS DIV IS WHERE YOU WILL WANT TO INSERT CONTENT. EVERYTHING OUTSIDE OF IT IS THE TEMPLATE FOR THE PAGE WHILE THE INSIDE IS THE THEME. -Corey -->
                     <!-- Place this snippet inside the <div id="layout" class="container-fluid"> in your index.html file -->
-                        <div id="data-cleaning-method">
-                            <h2>Data Cleaning Method</h2>
-                            <p>Please select which base data file you would like to use to create your customized data set. There are two base data files to choose from: baseline and modal.</p>
-                            <form>
-                                <input type="radio" id="baseline" name="data_file_type" value="baseline">
-                                <label for="baseline">Baseline Data Cleaning File</label><br>
-                                
-                                <input type="radio" id="modal" name="data_file_type" value="modal">
-                                <label for="modal">Modal Data Cleaning File</label><br>
-                            </form>
+                        <div class="main-container">
+                            <!-- Data Cleaning Method Section -->
+                            <div class="data-cleaning-method">
+                                <h2>Data Cleaning Method</h2>
+                                <p>Please select which base data file you would like to use to create your customized data set. There are two base data files to choose from: baseline and modal.</p>
+                                <form>
+                                    <input type="radio" id="baseline" name="data_file_type" value="baseline">
+                                    <label for="baseline">Baseline Data Cleaning File</label><br>
+                                    
+                                    <input type="radio" id="modal" name="data_file_type" value="modal">
+                                    <label for="modal">Modal Data Cleaning File</label><br>
+                                </form>
+                            </div>
+                            
+                            <!-- Identifying Variables Section -->
+                            <div class="section">
+                                <h2>Identifying Variables</h2>
+                                <!-- Sub-section example with checkboxes -->
+                                <div class="variable">
+                                    <input type="checkbox" id="participantID">
+                                    <label for="participantID">Participant ID</label>
+                                    <button onclick="showPopup('This is information about Participant ID')">?</button>
+                                </div>
+                                <div class="variable">
+                                    <input type="checkbox" id="Trial Order">
+                                    <label for="Trial Order">Trial Order</label>
+                                    <button onclick="showPopup('This is information about Trial Order')">?</button>
+                                </div>
+                                <!-- Repeat for other variables... -->
+                                <div class="variable">
+                                    <input type="checkbox" id="Passage ID">
+                                    <label for="Passage ID">Passage ID</label>
+                                    <button onclick="showPopup('This is information about Passage ID')">?</button>
+                                </div>
+                                <!-- Repeat for other variables... -->
+                                <div class="variable">
+                                    <input type="checkbox" id="IA ID">
+                                    <label for="IA ID">IA ID</label>
+                                    <button onclick="showPopup('This is information about IA ID')">?</button>
+                                </div>
+                                <!-- Repeat for other variables... -->
+                                <div class="variable">
+                                    <input type="checkbox" id="Unique Word ID">
+                                    <label for="Unique Word ID">Unique Word ID</label>
+                                    <button onclick="showPopup('This is information about Unique Word ID')">?</button>
+                                </div>
+                                <!-- Repeat for other variables... -->
+                                <div class="variable">
+                                    <input type="checkbox" id="Word">
+                                    <label for="Word">Word</label>
+                                    <button onclick="showPopup('This is information about Word')">?</button>
+                                </div>
+                                <!-- Repeat for other variables... -->
+                                <div class="variable">
+                                    <input type="checkbox" id="Word Cleaned">
+                                    <label for="Word Cleaned">Word Cleaned</label>
+                                    <button onclick="showPopup('This is information about Word Cleaned')">?</button>
+                                </div>
+                                <!-- Repeat for other variables... -->
+                                <div class="variable">
+                                    <input type="checkbox" id="Passage Text">
+                                    <label for="Passage Text">Passage Text</label>
+                                    <button onclick="showPopup('This is information about Passage Text')">?</button>
+                                </div>
+                                <!-- Repeat for other variables... -->
+                            </div>
+                            
+                            <!-- Eye Movement Data Section -->
+                            <div class="section">
+                                <h2>Eye Movement Data</h2>
+                                <h3>Trial Data</h3>
+                                <!-- Sub-section example with checkboxes -->
+                                <div class="variable">
+                                    <input type="checkbox" id="Total Trial Time">
+                                    <label for="Total Trial Time">Total Trial Time</label>
+                                    <button onclick="showPopup('This is information about Total Trial Time')">?</button>
+                                </div>
+                                <!-- Repeat for other variables... -->
+                                <div class="variable">
+                                    <input type="checkbox" id="eyeTracked">
+                                    <label for="eyeTracked">Eye Tracked</label>
+                                    <button onclick="showPopup('This is information about Eye Tracked')">?</button>
+                                </div>
+                            </div>
                         </div>
                         
-                        <!-- Consolidated Popup Container -->
-                        <div id="popup-container" style="display:none; position:fixed; top:10px; left:50%; transform:translateX(-50%); padding:20px; background:#fff; border:1px solid #ddd; z-index:10001;">
-                            <div id="popup-content"></div>
-                            <button onclick="hidePopup()">Close</button>
+                        <!-- Popup for displaying information -->
+                        <div id="infoPopup" class="popup" style="
+                            display: none;
+                            position: fixed;
+                            top: 0;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 100%;
+                            background-color: rgba(255, 255, 255, 0.9);
+                            z-index: 1050; /* Adjust z-index if needed */
+                            text-align: center;
+                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                            padding: 1rem;
+                            box-sizing: border-box;">
+                            <p id="popupContent" style="margin: 0;">Info goes here</p>
+                            <button onclick="hidePopup()" style="margin-top: 10px;">Close</button>
                         </div>
                         
                         <script>
-                            function showPopup(description) {
-                                document.getElementById('popup-content').innerText = description;
-                                document.getElementById('popup-container').style.display = 'block';
+                            function showPopup(info) {
+                                document.getElementById('popupContent').textContent = info;
+                                document.getElementById('infoPopup').style.display = 'block';
                             }
-                            
+                        
                             function hidePopup() {
-                                document.getElementById('popup-container').style.display = 'none';
+                                document.getElementById('infoPopup').style.display = 'none';
                             }
                         </script>
-                        
-                        <div id="variable-selection">
-                            {% for category, variables in headers_parts.items() %}
-                            <div class="category">
-                                <h2>{{ category }}</h2>
-                                {% for variable, description in variables %}
-                                <div class="variable">
-                                    <input type="checkbox" id="var_{{ loop.index }}" name="variables" value="{{ variable }}">
-                                    <label for="var_{{ loop.index }}">{{ variable }}</label>
-                                    <a href="javascript:void(0);" onclick="showPopup('{{ description }}')">?</a>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            {% endfor %}
-                        </div>
-                        </div>
-                        </article>
-  
-  <!-- Popup Template -->
-  <div id="popup" class="popup" style="display:none; position:fixed; top:10px; left:50%; transform:translateX(-50%); padding:20px; background:#fff; border:1px solid #ddd; z-index:10001;">
-    <!-- Popup content will be filled by JavaScript -->
-  </div>
-  
-  <script>
-  function showPopup(title) {
-    // This is where you can fill the popup content based on the section title
-    var popupContent = 'Information about ' + title;
-    
-    // Display the popup
-    var popup = document.getElementById('popup');
-    popup.innerHTML = popupContent;
-    popup.style.display = 'block';
-    
-    // Hide the popup after 5 seconds
-    setTimeout(function() {
-      popup.style.display = 'none';
-    }, 5000);
-  }
-  </script>
+                           
   </div>
         </div>
         <footer>
