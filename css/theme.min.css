@@ -196,7 +196,7 @@ header {
 
 #breadcrumbs ol {
     margin-bottom: 0;
-    padding-left: 0
+    padding-left: 5
 }
 
 #breadcrumbs a {
@@ -213,12 +213,11 @@ header {
 .accordions .ui-accordion-header {
     background: #fff none !important;
     border: 1px solid #ccc;
-    border-top: 1px #ccc solid !important;
     border-radius: 4px !important;
     color: #222222 !important;
     font: normal 20px 'Open Sans', 'Arial', 'sans-serif' !important;
     margin: 0px !important;
-    padding: 15px 0px !important
+    padding: 15px 20px 
 }
 
 .accordions .ui-accordion-header:first-child,
@@ -227,9 +226,9 @@ header {
 }
 
 .accordions .ui-accordion-content {
-    border: 1px solid #ccc;
-    border-top: none;
-    border-radius: 0 0 4px 4px ;
+    border-left: 1px solid #ccc; /* Adjusted to border-left */
+    border-right: 1px solid #ccc; /* Adjusted to border-right */
+    border-bottom: 1px solid #ccc; /* Adjusted to border-bottom */
     color: #636363 !important;
     font: normal 16px 'Open Sans', 'Arial', 'sans-serif' !important;
     padding: 15px 20px;
@@ -237,8 +236,8 @@ header {
 
 .accordions .ui-accordion-content h2,
 .accordions .ui-accordion-content h3 {
-    border: none !important;
-    padding: 0px !important
+   
+    padding: 8px !important
 }
 
 .accordions .ui-accordion-content a {
@@ -262,7 +261,7 @@ header {
 }
 
 .ui-accordion .ui-accordion-content {
-    padding: 0 10px 20px 10px !important
+    padding: 0 10px 20px;
 }
 
 .accordions {
@@ -286,8 +285,8 @@ header {
 .accordion .card-header {
     background-color: transparent;
     border-bottom: none;
-    padding-left: 0;
-    padding-right: 0
+    padding-left: 5;
+    padding-right: 5
 }
 
 .accordion-button {
@@ -299,7 +298,7 @@ header {
 
 .accordion .card-body {
     background-color: transparent;
-    padding-top: 0
+    padding-top: 5
 }
 
 #page-banner,
