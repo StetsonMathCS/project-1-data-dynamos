@@ -216,7 +216,7 @@ header {
     border-radius: 4px !important;
     color: #222222 !important;
     font: normal 20px 'Open Sans', 'Arial', 'sans-serif' !important;
-    margin: 0px !important;
+    margin: 10px;
     padding: 15px 20px 
 }
 
@@ -231,7 +231,7 @@ header {
     border-bottom: 1px solid #ccc; /* Adjusted to border-bottom */
     color: #636363 !important;
     font: normal 16px 'Open Sans', 'Arial', 'sans-serif' !important;
-    padding: 15px 20px;
+    padding: 30px;
 }
 
 .accordions .ui-accordion-content h2,
@@ -254,6 +254,16 @@ header {
 
 .accordions .ui-accordion-header:first-child:hover {
     border-top: none !important
+}
+.variable input[type="checkbox"] {
+    margin-right: 20px; /* Adjust the default margin */
+}
+
+#participantID,
+#Passage_ID,
+#Word_Cleaned,
+#Passage_Text {
+    margin-right: 20px; /* Adjust the margin for specific checkboxes */
 }
 
 .ui-icon {
@@ -400,8 +410,8 @@ header {
 
 #layout h2 {
     background-color: #efefef;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+    border-top: 3px solid #ccc;
+    border-bottom: 3px solid #ccc;
     color: #000;
     font-size: 24px;
     margin: 20px 0;
